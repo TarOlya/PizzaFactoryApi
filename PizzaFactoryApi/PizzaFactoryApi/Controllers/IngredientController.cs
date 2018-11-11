@@ -1,16 +1,38 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PizzaData.IOModels;
+using PizzaFactoryApi.ViewModels;
+using IngredientModel = PizzaData.IOModels.IngredientModel;
 
 namespace PizzaFactoryApi.Controllers
 {
     [Route("api/[controller]")]
     public class IngredientController : Controller
     {
-        [HttpGet("{id}")]
-        public async Task<IngredientModel> GetIngredient(int id)
+
+        [HttpPost("GetIngredients/{page}/{pageSize}")]
+        public async Task<IEnumerable<IngredientModel>> GetIngredient(int page, int pageSize, [FromBody]FilterParams filter)
         {
-            return new IngredientModel();
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        public async Task<Guid> AddIngredient([FromBody]IngredientModel ingredient)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut("{id}")]
+        public async Task UpdateIngredient(Guid id, [FromBody]IngredientModel ingredient)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteIngredient(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

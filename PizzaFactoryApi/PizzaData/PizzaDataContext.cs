@@ -12,7 +12,7 @@ namespace PizzaData
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Pizza;Username=postgres;Password=561750");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=Pizza;Username=postgres;Password=postgres");
             }
         }
 
