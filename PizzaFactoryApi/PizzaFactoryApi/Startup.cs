@@ -44,6 +44,7 @@ namespace PizzaFactoryApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = "api";
             });
+            app.UseAuthentication();
         }
     }
 }

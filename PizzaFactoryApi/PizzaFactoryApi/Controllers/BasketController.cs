@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PizzaData.IOModels;
+using PizzaFactoryApi.ViewModels;
 
 namespace PizzaFactoryApi.Controllers
 {

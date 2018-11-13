@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PizzaData;
-using PizzaData.Repositories;
 using PizzaFactoryApi.ViewModels;
-using PizzaModel = PizzaData.IOModels.PizzaModel;
 
 namespace PizzaFactoryApi.Controllers
 {

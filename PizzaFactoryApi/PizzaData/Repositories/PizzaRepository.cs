@@ -1,56 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using PizzaData.Interfaces;
 using PizzaData.Models;
 
 namespace PizzaData.Repositories
 {
-    public class PizzaRepository
+    public class PizzaRepository: RepositoryCrud<Pizza>, IPizzaRepository
     {
-        private PizzaContext _db;
+        private readonly PizzaContext _db;
 
-        public PizzaRepository(PizzaContext db)
+        public PizzaRepository(PizzaContext db) : base(db)
         {
             _db = db;
         }
 
-        public async Task<Pizza> GetPizza(int id)
+        public IEnumerable<Pizza> GetByPage(Page page)
         {
-            return await _db.Pizza.FindAsync(id);
-        }
-
-        public IEnumerable<object> GetAllMenu()
-        {
-            return _db.Pizza
-                .Include(pizza => pizza.Recipe)
-                .ThenInclude(rElement => rElement.IngredientId).ToList();
-        }
-
-        public async Task Add()
-        {
-            var pizza = new Pizza
-            {
-                Cost = 20,
-                Description = "",
-                Name = "Four Cheese",
-            };
-            var ingredient = new Ingredient
-            {
-                Cost = 10,
-                Description = "",
-                Name = "Cheese",
-            };
-            var pi = new PizzaIngredient
-            {
-                Ingredient = ingredient,
-                Pizza = pizza
-            };
-
-            _db.Add(pi);
-
-            await _db.SaveChangesAsync();
+            return _db.Pizza.Skip((page.PageNumber - 1) * page.PageSize).Take(page.PageSize);
         }
     }
 }

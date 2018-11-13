@@ -1,11 +1,13 @@
-﻿namespace PizzaData.Models
+﻿using System;
+
+namespace PizzaData.Models
 {
-    public class PizzaIngredient
+    public class PizzaIngredient: BaseEntity
     {
-        public int PizzaId { get; set; }
+        public Guid PizzaId { get; set; }
         public Pizza Pizza { get; set; }
 
-        public int IngredientId { get; set; }
+        public Guid IngredientId { get; set; }
         public Ingredient Ingredient { get; set; }
     }
 }
