@@ -6,7 +6,7 @@ using PizzaData.Models;
 
 namespace PizzaData.Repositories
 {
-    class IngredientRepository: RepositoryCrud<Ingredient>, IIngredientRepository
+    public class IngredientRepository: RepositoryCrud<Ingredient>, IIngredientRepository
     {
         private readonly PizzaContext _db;
 

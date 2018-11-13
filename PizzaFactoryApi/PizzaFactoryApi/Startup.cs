@@ -1,8 +1,20 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PizzaData;
+using PizzaData.Interfaces;
+using PizzaData.Models;
+using PizzaData.Repositories;
+using PizzaFactoryApi.Filters;
+using PizzaFactoryApi.Validation;
+using PizzaFactoryApi.ViewModels;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace PizzaFactoryApi
@@ -18,10 +30,25 @@ namespace PizzaFactoryApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options => { options.Filters.Add(new ExceptionFilter()); })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddFluentValidation();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+            services.AddDbContext<PizzaContext>(c => { c.UseNpgsql(Configuration.GetConnectionString("PizzaDb")); });
+            services.AddTransient<IValidator<LoginParams>, UserModelValidator>();
+            services.AddTransient<IValidator<PizzaModel>, PizzaModelValidator>();
+            services.AddTransient<IValidator<IngredientModel>, IngredientModelValidator>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPizzaRepository, PizzaRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<LoginParams, User>();
+                config.CreateMap<IngredientModel, Ingredient>();
+                config.CreateMap<PizzaModel, Pizza>();
             });
         }
 

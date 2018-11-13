@@ -20,6 +20,7 @@ namespace PizzaData.Repositories
 
         public virtual async Task<Guid> Create(T entity)
         {
+            entity.Id = Guid.NewGuid();
             await _db.Set<T>().AddAsync(entity);
             await _db.SaveChangesAsync();
             return entity.Id;

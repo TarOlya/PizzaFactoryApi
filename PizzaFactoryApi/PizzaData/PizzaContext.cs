@@ -19,12 +19,6 @@ namespace PizzaData
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasSequence<int>("Id")
-                .StartsAt(1)
-                .IncrementsBy(1);
-
-            modelBuilder.Entity<PizzaIngredient>()
-                .HasKey(e => new {e.IngredientId, e.PizzaId});
         }
     }
 }
