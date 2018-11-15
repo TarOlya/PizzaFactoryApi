@@ -27,8 +27,7 @@ namespace PizzaFactoryApi.Controllers
         {
             var u = Mapper.Map<LoginParams, User>(user);
             await _validator.ValidateAndThrowAsync(u);
-            await _repository.Create(u);
-            return u.Id;
+            return await _repository.Create(u);
         }
 
         //I'm not sure in this code
@@ -48,11 +47,11 @@ namespace PizzaFactoryApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<User>> GetUsers()
         {
-            throw new NotImplementedException();
+            return await _repository.GetAll();
         }
 
-        [HttpPut("{id}")]
-        public async Task UpdateUser(Guid id, [FromBody] User user)
+        [HttpPut("Update")]
+        public async Task UpdateUser([FromBody] User user)
         {
             await _validator.ValidateAndThrowAsync(user);
             await _repository.Update(user);

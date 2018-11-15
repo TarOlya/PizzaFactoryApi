@@ -9,6 +9,16 @@ namespace PizzaData
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public PizzaContext()
+        {
+
+        }
+
+        public PizzaContext(DbContextOptions<PizzaContext> options) : base(options)
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -38,7 +37,7 @@ namespace PizzaFactoryApi
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
             services.AddDbContext<PizzaContext>(c => { c.UseNpgsql(Configuration.GetConnectionString("PizzaDb")); });
-            services.AddTransient<IValidator<LoginParams>, UserModelValidator>();
+            services.AddTransient<IValidator<User>, UserModelValidator>();
             services.AddTransient<IValidator<PizzaModel>, PizzaModelValidator>();
             services.AddTransient<IValidator<IngredientModel>, IngredientModelValidator>();
             services.AddScoped<IUserRepository, UserRepository>();
